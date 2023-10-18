@@ -1,10 +1,3 @@
-// Function to create a new date at 1:00 PM in the same time zone
-function createClickUpDate(date) {
-  const clickUpDate = new Date(date);
-  clickUpDate.setHours(13, 0, 0, 0);
-  return clickUpDate;
-}
-
 // Convert the submittedAt timestamp to the EST (Eastern Standard Time) time zone
 const submissionDate = new Date(inputData.submittedAt).toLocaleString('en-US', {
   timeZone: 'America/New_York'
@@ -28,25 +21,10 @@ const isOperatingHours = !isWeekend && hour >= 9 && hour <= 17;
 // Check if it's after operating hours on a weekday
 const isAfterHours = !isWeekend && !isOperatingHours;
 
-// Create a common date object for ClickUp calculations
-const clickUpDate = createClickUpDate(estDate);
-
-// Calculate the ClickUp operating hours date
-const clickUpOHDate = createClickUpDate(clickUpDate);
-
-// Calculate the ClickUp after-hours date
-const clickUpAHDate = createClickUpDate(hour < 9 || hour > 17 ? new Date(clickUpDate.setDate(clickUpDate.getDate() + 1)) : clickUpDate);
-
-// Calculate the ClickUp weekend hours date
-const clickUpWHDate = createClickUpDate(day === 0 ? new Date(clickUpDate.setDate(clickUpDate.getDate() + 1)) : day === 6 ? new Date(clickUpDate.setDate(clickUpDate.getDate() + 2)) : clickUpDate);
-
 // Return the results in an object
 return {
   isOperatingHours,
   isAfterHours,
   isWeekend,
-  clickUpOHDate,
-  clickUpAHDate,
-  clickUpWHDate,
   submissionDate
 };
