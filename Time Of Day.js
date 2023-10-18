@@ -12,6 +12,10 @@ const estDate = new Date(now.toLocaleString('en-US', estOptions));
 const hour = estDate.getHours();
 const day = estDate.getDay();
 
+// Create an array of day names
+const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const dayName = dayNames[day];
+
 // Check if the current day is a weekend (Saturday or Sunday)
 const isWeekend = [0, 6].includes(day);
 
@@ -21,10 +25,11 @@ const isOperatingHours = !isWeekend && hour >= 9 && hour <= 17;
 // Check if it's after operating hours on a weekday
 const isAfterHours = !isWeekend && !isOperatingHours;
 
-// Return the results in an object
+// Return the results in an object, including the day name
 return {
   isOperatingHours,
   isAfterHours,
   isWeekend,
+  dayName,
   submissionDate
 };
